@@ -125,8 +125,8 @@ public class Day3 {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
 
-        if (partNumbersAdjacentToGear .size() == 2) {
-            return partNumbersAdjacentToGear .stream()
+        if (partNumbersAdjacentToGear.size() == 2) {
+            return partNumbersAdjacentToGear.stream()
                     .mapToInt(PartNumberDetail::getNumber)
                     .reduce(1, (a, b) -> a * b);
         }
@@ -144,7 +144,7 @@ public class Day3 {
 
     private AdjacentPosition getAdjacentIndexForDirection(AdjacentDirection direction, int currentLineNumber, int foundSymbolIndex) {
         Point directionOffset = DIRECTION_MAP.get(direction);
-        return new AdjacentPosition(currentLineNumber + directionOffset .x, foundSymbolIndex + directionOffset .y);
+        return new AdjacentPosition(currentLineNumber + directionOffset.x, foundSymbolIndex + directionOffset.y);
     }
 
     private boolean isIndexesValid(List<String> engineSchematicLines, AdjacentPosition indexes) {
