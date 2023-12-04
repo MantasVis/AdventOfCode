@@ -10,15 +10,17 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import advent.of.code.days.Day;
 import advent.of.code.util.AdventUtils;
 
-public class Day1 {
+public class Day1 implements Day {
 
-    private static final String INPUT = "resources/Day1/input.txt";
+    private static final String INPUT = "resources/day1/input.txt";
     private static final Map<String, String> STRING_NUMBER_MAP = Map.of("one", "1", "two", "2", "three", "3", "four", "4", "five", "5", "six", "6", "seven", "7", "eight", "8", "nine", "9");
     private static final Pattern FIRST_NUMERICAL_DIGIT_PATTERN = Pattern.compile("\\d");
     private static final Pattern LAST_NUMERICAL_DIGIT_PATTERN = Pattern.compile("\\d(?!\\d)");
 
+    @Override
     public void run() {
         List<String> lines = AdventUtils.readFile(INPUT);
 

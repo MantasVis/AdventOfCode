@@ -13,11 +13,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import advent.of.code.days.Day;
 import advent.of.code.util.AdventUtils;
 
-public class Day3 {
+public class Day3 implements Day {
 
-    private static final String INPUT = "resources/Day3/input.txt";
+    private static final String INPUT = "resources/day3/input.txt";
     private static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
     private static final Map<AdjacentDirection, Point> DIRECTION_MAP = Map.of(
             AdjacentDirection.TOP_LEFT, new Point(-1, -1),
@@ -30,6 +31,7 @@ public class Day3 {
             AdjacentDirection.BOTTOM_RIGHT, new Point(1, 1)
     );
 
+    @Override
     public void run() {
         List<String> engineSchematicLines = AdventUtils.readFile(INPUT);
 

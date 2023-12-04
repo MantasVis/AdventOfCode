@@ -1,18 +1,26 @@
 package advent.of.code;
 
-import advent.of.code.days.day1.Day1;
-import advent.of.code.days.day2.Day2;
-import advent.of.code.days.day3.Day3;
+import java.lang.reflect.InvocationTargetException;
+
+import advent.of.code.days.Day;
 
 public class Main {
     public static void main(String[] args) {
-        Day1 day1 = new Day1();
-        day1.run();
+        for (int i = 1; i <= 25; i++) {
+            try {
+                String className = "advent.of.code.days.day" + i + ".Day" + i;
+                Class<?> dayClass = Class.forName(className);
 
-        Day2 day2 = new Day2();
-        day2.run();
+                if (Day.class.isAssignableFrom(dayClass)) {
+                    Day dayInstance = (Day) dayClass.getDeclaredConstructor().newInstance();
+                    dayInstance.run();
+                }
 
-        Day3 day3 = new Day3();
-        day3.run();
+            } catch (ClassNotFoundException e) {
+                break;
+            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

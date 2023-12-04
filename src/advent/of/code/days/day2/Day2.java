@@ -6,16 +6,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import advent.of.code.days.Day;
 import advent.of.code.util.AdventUtils;
 
-public class Day2 {
+public class Day2 implements Day {
 
-    private static final String INPUT = "resources/Day2/input.txt";
+    private static final String INPUT = "resources/day2/input.txt";
     private static final Map<Cube, Integer> CONDITIONS = Map.of(new Cube(Colour.RED), 12, new Cube(Colour.GREEN), 13, new Cube(Colour.BLUE), 14);
 
+    @Override
     public void run() {
-        int sumOfPossibleGameIds = calculateTotalPossibleGameIds();
-        int productOfMinimumCubeValues = calculateTotalMinimumCubeProduct();
+        List<String> gameLines = AdventUtils.readFile(INPUT);
+
+        int sumOfPossibleGameIds = calculateTotalPossibleGameIds(gameLines);
+        int productOfMinimumCubeValues = calculateTotalMinimumCubeProduct(gameLines);
 
         System.out.println(AdventUtils.formatSectionHeader("DAY 2"));
         System.out.println("Sum of possible game ids = " + sumOfPossibleGameIds);
@@ -24,19 +28,20 @@ public class Day2 {
         System.out.println();
     }
 
-    private int calculateTotalPossibleGameIds() {
-        return getPossibleGameIds().stream().reduce(0, Integer::sum);
+    private int calculateTotalPossibleGameIds(List<String> gameLines) {
+        return getPossibleGameIds(gameLines).stream()
+                .reduce(0, Integer::sum);
     }
 
-    private List<Integer> getPossibleGameIds() {
-        return parseAllGames().stream()
+    private List<Integer> getPossibleGameIds(List<String> gameLines) {
+        return parseAllGames(gameLines).stream()
                 .filter(this::gameIsPossible)
                 .map(Game::id)
                 .toList();
     }
 
-    private List<Game> parseAllGames() {
-        return AdventUtils.readFile(INPUT).stream()
+    private List<Game> parseAllGames(List<String> gameLines) {
+        return gameLines.stream()
                 .map(this::parseGameLine)
                 .toList();
     }
@@ -76,14 +81,14 @@ public class Day2 {
         return new AbstractMap.SimpleEntry<>(cube, count);
     }
 
-    private int calculateTotalMinimumCubeProduct() {
-        return getTotalMinimumCubeValues().stream()
+    private int calculateTotalMinimumCubeProduct(List<String> gameLines) {
+        return getTotalMinimumCubeValues(gameLines).stream()
                 .mapToInt(gameMinimum -> gameMinimum.values().stream().reduce(1, (a, b) -> a * b))
                 .sum();
     }
 
-    private List<Map<Cube, Integer>> getTotalMinimumCubeValues() {
-        return parseAllGames().stream()
+    private List<Map<Cube, Integer>> getTotalMinimumCubeValues(List<String> gameLines) {
+        return parseAllGames(gameLines).stream()
                 .map(this::calculateGameMinimumCubes)
                 .toList();
     }
